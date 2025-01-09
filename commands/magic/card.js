@@ -16,33 +16,18 @@ const data = new SlashCommandBuilder()
 			.setRequired(false))
 
 
-function makeEmbed(response) {
-	let parts = response.body.split('\n');
-	const embedTitle = parts.shift();
-
-	return {
-		title: `${embedTitle}`,
-		description: parts.join('\n'),
-		url: response.headers['x-scryfall-card'],
-		thumbnail: {
-			url: response.headers['x-scryfall-card-image']
-		}
-	};
-}
-
 async function execute(interaction) {
 	const card_name = interaction.options.getString("name");
 	const only_send_image = interaction.options.getBoolean("image") ?? false;
-	console.log(only_send_image)
-	let response
-	if(only_send_image) {
-		response = new ResponseTypes.ImageResponse(card_name)
+	const responseClass = only_send_image ? ResponseTypes.ImageResponse : ResponseTypes.TextResponse
+	const response = new responseClass(card_name)
+
+	try {
+		const embed = await response.embed()
+		await interaction.reply({ embeds: [embed]})
+	} catch (error) {
+		await interaction.reply("Error running the search")
 	}
-	else { 
-		response = new ResponseTypes.TextResponse(card_name)
-	}
-	const embed = await response.embed()
-	interaction.reply({ embeds: [embed]})
 }
 
 module.exports = {data, execute}
