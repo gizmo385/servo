@@ -1,13 +1,12 @@
 const { Client, Collection, Events, GatewayIntentBits, SlashCommandBuilder } = require('discord.js');
 const fs = require('node:fs')
 const path = require('node:path')
-const { token } = require('./config.json')
 
-const discordToken = token || process.env.DISCORD_TOKEN
+const discordToken = process.env.DISCORD_TOKEN
 
 // Validate that there is a token in the config
 if (!discordToken) {
-  console.log('Error: Please add a `token` to `config.json`');
+  console.log('Error: Please set a DISCORD_TOKEN env variable');
   process.exit(1);
 }
 
