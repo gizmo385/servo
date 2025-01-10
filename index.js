@@ -3,8 +3,10 @@ const fs = require('node:fs')
 const path = require('node:path')
 const { token } = require('./config.json')
 
+const discordToken = token || process.env.DISCORD_TOKEN
+
 // Validate that there is a token in the config
-if (!token) {
+if (!discordToken) {
   console.log('Error: Please add a `token` to `config.json`');
   process.exit(1);
 }
@@ -65,4 +67,4 @@ client.once(Events.ClientReady, readyClient => {
 })
 
 // Connect to Discord
-client.login(token)
+client.login(discordToken)
