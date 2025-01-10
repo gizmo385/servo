@@ -26,6 +26,7 @@ async function execute(interaction) {
 		const embed = await response.embed()
 		await interaction.reply({ embeds: [embed]})
 	} catch (error) {
+		console.log(error)
 		await interaction.reply("Error running the search")
 	}
 }
