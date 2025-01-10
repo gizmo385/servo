@@ -16,6 +16,7 @@ const commandFolders = fs.readdirSync(foldersPath);
 const options = {
 	intents: [
 		GatewayIntentBits.Guilds,
+		GatewayIntentBits.DirectMessages,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.MessageContent,
 	]
