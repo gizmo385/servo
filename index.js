@@ -1,13 +1,25 @@
 const { Client, Collection, Events, GatewayIntentBits, SlashCommandBuilder } = require('discord.js');
 const fs = require('node:fs')
 const path = require('node:path')
+const axios = require('axios')
 
 const discordToken = process.env.DISCORD_TOKEN
+const uptimeHeartbeatUrl = process.env.UPTIME_HEARTBEAT_URL
 
 // Validate that there is a token in the config
 if (!discordToken) {
   console.log('Error: Please set a DISCORD_TOKEN env variable');
   process.exit(1);
+}
+
+if(uptimeHeartbeatUrl) {
+	console.log("Starting heartbeat...")
+	const stringUrl = process.env.UPTIME_HEARTBEAT_URL.toString();
+	const heartbeatFunction = async () => {
+		console.log("Sending uptime heartbeat")
+		await axios.get(stringUrl);
+	};
+	setInterval(heartbeatFunction, 58000);
 }
 
 // Set up the client
