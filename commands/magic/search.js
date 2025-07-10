@@ -4,6 +4,7 @@ const ResponseTypes = require('../../lib/response-types.js')
 const data = new SlashCommandBuilder()
 	.setName("search")
 	.setDescription("Search for Magic cards using Scryfall syntax")
+	.setContexts([0, 1, 2])
 	.addStringOption(option =>
 		option
 			.setName("query")

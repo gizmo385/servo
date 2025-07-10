@@ -4,6 +4,7 @@ const ResponseTypes = require('../../lib/response-types.js')
 const data = new SlashCommandBuilder()
 	.setName("card")
 	.setDescription("Load information about a magic card")
+	.setContexts([0, 1, 2])
 	.addStringOption(option =>
 		option
 			.setName("name")
